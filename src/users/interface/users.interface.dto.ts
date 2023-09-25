@@ -1,0 +1,9 @@
+import { Document } from 'mongoose';
+
+export interface UsersInterface extends Document {
+  readonly name: string;
+  readonly birthday: Date;
+  readonly height: number;
+  readonly weight: number;
+  readonly interest: [string];
+}
