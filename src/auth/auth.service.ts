@@ -43,6 +43,8 @@ export class AuthService {
       throw new UnauthorizedException('Enter your Email or Username');
     }
 
+    // # Can login with username/email (Optional), password (Must)
+
     let user;
 
     if (email) {
