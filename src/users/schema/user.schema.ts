@@ -12,6 +12,9 @@ export class Users {
   @Prop({})
   birthday: Date;
 
+  @Prop({})
+  zodiac: string;
+
   @Prop()
   height: number;
 
