@@ -20,59 +20,122 @@ export class UsersService {
     user: Auth,
   ): Promise<UsersInterface> {
     const data = Object.assign(createUserDto, { user: user._id });
-    console.log(data);
-
-    const getZodiacSign = (birthdate: Date): string => {
+    let zodiacTemp = '';
+    let horoscopeTemp = '';
+    const getZodiacHoroscopes = (birthdate: Date): any => {
       const month = birthdate.getMonth() + 1;
       const day = birthdate.getDate();
 
       if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) {
-        return 'Aries';
+        zodiacTemp = 'Aries';
+        horoscopeTemp = 'Rum';
+        return {
+          zodiacTemp,
+          horoscopeTemp,
+        };
       }
       if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) {
-        return 'Taurus';
+        zodiacTemp = 'Taurus';
+        horoscopeTemp = 'Bull';
+        return {
+          zodiacTemp,
+          horoscopeTemp,
+        };
       }
       if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) {
-        return 'Gemini';
+        zodiacTemp = 'Gemini';
+        horoscopeTemp = 'Twins';
+        return {
+          zodiacTemp,
+          horoscopeTemp,
+        };
       }
       if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) {
-        return 'Cancer';
+        zodiacTemp = 'Cancer';
+        horoscopeTemp = 'Crab';
+        return {
+          zodiacTemp,
+          horoscopeTemp,
+        };
       }
       if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) {
-        return 'Leo';
+        zodiacTemp = 'Leo';
+        horoscopeTemp = 'Lion';
+        return {
+          zodiacTemp,
+          horoscopeTemp,
+        };
       }
       if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) {
-        return 'Virgo';
+        zodiacTemp = 'Virgo';
+        horoscopeTemp = 'Virgin';
+        return {
+          zodiacTemp,
+          horoscopeTemp,
+        };
       }
       if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) {
-        return 'Libra';
+        zodiacTemp = 'Libra';
+        horoscopeTemp = 'Balance';
+        return {
+          zodiacTemp,
+          horoscopeTemp,
+        };
       }
       if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) {
-        return 'Scorpio';
+        zodiacTemp = 'Scorpius';
+        horoscopeTemp = 'Scorpion';
+        return {
+          zodiacTemp,
+          horoscopeTemp,
+        };
       }
       if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) {
-        return 'Sagittarius';
+        zodiacTemp = 'Sagittarius';
+        horoscopeTemp = 'Archer';
+        return {
+          zodiacTemp,
+          horoscopeTemp,
+        };
       }
       if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) {
-        return 'Capricorn';
+        zodiacTemp = 'Capricornus';
+        horoscopeTemp = 'Goat';
+        return {
+          zodiacTemp,
+          horoscopeTemp,
+        };
       }
       if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) {
-        return 'Aquarius';
+        zodiacTemp = 'Aquarius';
+        horoscopeTemp = 'Water Bearer';
+        return {
+          zodiacTemp,
+          horoscopeTemp,
+        };
       }
       if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) {
-        return 'Pisces';
+        zodiacTemp = 'Pisces';
+        horoscopeTemp = 'Fish';
+        return {
+          zodiacTemp,
+          horoscopeTemp,
+        };
       }
     };
+    const zodiacHorosocopes = getZodiacHoroscopes(new Date(data.birthday));
+    const zodiac = zodiacHorosocopes.zodiacTemp;
+    const horoscope = zodiacHorosocopes.horoscopeTemp;
 
     const newProfile = await this.usersModel.create({
       name: data.name,
       birthday: data.birthday,
-      zodiac: getZodiacSign(new Date(data.birthday)),
+      zodiac: zodiac,
+      horoscope: horoscope,
       weight: data.weight,
       height: data.height,
       interest: data.interest,
     });
-    console.log('storing', newProfile);
     return newProfile.save();
   }
 

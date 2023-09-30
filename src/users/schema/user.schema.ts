@@ -15,6 +15,9 @@ export class Users {
   @Prop({})
   zodiac: string;
 
+  @Prop({})
+  horoscope: string;
+
   @Prop()
   height: number;
 

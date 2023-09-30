@@ -34,7 +34,6 @@ export class UsersController {
         createUserDto,
         request.user,
       );
-      console.log(newProfile);
       return response.status(HttpStatus.CREATED).json({
         message: 'Profile has been created succesfully',
         newProfile,

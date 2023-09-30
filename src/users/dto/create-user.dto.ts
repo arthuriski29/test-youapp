@@ -16,9 +16,9 @@ export class CreateUserDto {
   @Transform(({ value }) => new Date(value))
   readonly birthday: Date;
 
-  // @IsDate()
-  // @Transform(({ value }) => new Date(value))
   readonly zodiac: Date;
+
+  readonly horoscope: string;
 
   @IsNumberString()
   readonly height: number;
