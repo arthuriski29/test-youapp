@@ -20,11 +20,11 @@ export class UsersService {
     user: Auth,
   ): Promise<UsersInterface> {
     const data = Object.assign(createUserDto, { user: user._id });
-    let zodiacTemp = '';
-    let horoscopeTemp = '';
     const getZodiacHoroscopes = (birthdate: Date): any => {
       const month = birthdate.getMonth() + 1;
       const day = birthdate.getDate();
+      let zodiacTemp = '';
+      let horoscopeTemp = '';
 
       if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) {
         zodiacTemp = 'Aries';
