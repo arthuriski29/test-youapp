@@ -4,12 +4,13 @@ import {
   Get,
   Body,
   Param,
-  Put,
+  // Put,
   Delete,
   Res,
   HttpStatus,
   UseGuards,
   Req,
+  Patch,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { Users } from './schema/user.schema';
@@ -73,11 +74,11 @@ export class UsersController {
     }
   }
 
-  @Put('/updateProfile/:id')
+  @Patch('/updateProfile/:id')
   async updateById(
     @Res() response,
     @Param('id') id: string,
-    @Body('user') updateUserDto: UpdateUserDto,
+    @Body() updateUserDto: UpdateUserDto,
   ) {
     try {
       const existingProfile = await this.usersService.updateById(

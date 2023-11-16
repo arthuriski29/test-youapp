@@ -6,7 +6,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UsersInterface } from './interface/users.interface.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Auth } from 'src/auth/schemas/auth.schema';
-// import { ZodiacService } from 'src/users/dto/zodiac.dto';
+import { getZodiacHoroscopes } from './zodiac_horoscopes';
 
 @Injectable()
 export class UsersService {
@@ -20,109 +20,6 @@ export class UsersService {
     user: Auth,
   ): Promise<UsersInterface> {
     const data = Object.assign(createUserDto, { user: user._id });
-    const getZodiacHoroscopes = (birthdate: Date): any => {
-      const month = birthdate.getMonth() + 1;
-      const day = birthdate.getDate();
-      let zodiacTemp = '';
-      let horoscopeTemp = '';
-
-      if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) {
-        zodiacTemp = 'Aries';
-        horoscopeTemp = 'Rum';
-        return {
-          zodiacTemp,
-          horoscopeTemp,
-        };
-      }
-      if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) {
-        zodiacTemp = 'Taurus';
-        horoscopeTemp = 'Bull';
-        return {
-          zodiacTemp,
-          horoscopeTemp,
-        };
-      }
-      if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) {
-        zodiacTemp = 'Gemini';
-        horoscopeTemp = 'Twins';
-        return {
-          zodiacTemp,
-          horoscopeTemp,
-        };
-      }
-      if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) {
-        zodiacTemp = 'Cancer';
-        horoscopeTemp = 'Crab';
-        return {
-          zodiacTemp,
-          horoscopeTemp,
-        };
-      }
-      if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) {
-        zodiacTemp = 'Leo';
-        horoscopeTemp = 'Lion';
-        return {
-          zodiacTemp,
-          horoscopeTemp,
-        };
-      }
-      if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) {
-        zodiacTemp = 'Virgo';
-        horoscopeTemp = 'Virgin';
-        return {
-          zodiacTemp,
-          horoscopeTemp,
-        };
-      }
-      if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) {
-        zodiacTemp = 'Libra';
-        horoscopeTemp = 'Balance';
-        return {
-          zodiacTemp,
-          horoscopeTemp,
-        };
-      }
-      if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) {
-        zodiacTemp = 'Scorpius';
-        horoscopeTemp = 'Scorpion';
-        return {
-          zodiacTemp,
-          horoscopeTemp,
-        };
-      }
-      if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) {
-        zodiacTemp = 'Sagittarius';
-        horoscopeTemp = 'Archer';
-        return {
-          zodiacTemp,
-          horoscopeTemp,
-        };
-      }
-      if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) {
-        zodiacTemp = 'Capricornus';
-        horoscopeTemp = 'Goat';
-        return {
-          zodiacTemp,
-          horoscopeTemp,
-        };
-      }
-      if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) {
-        zodiacTemp = 'Aquarius';
-        horoscopeTemp = 'Water Bearer';
-        return {
-          zodiacTemp,
-          horoscopeTemp,
-        };
-      }
-      if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) {
-        zodiacTemp = 'Pisces';
-        horoscopeTemp = 'Fish';
-        return {
-          zodiacTemp,
-          horoscopeTemp,
-        };
-      }
-    };
     const zodiacHorosocopes = getZodiacHoroscopes(new Date(data.birthday));
     const zodiac = zodiacHorosocopes.zodiacTemp;
     const horoscope = zodiacHorosocopes.horoscopeTemp;
@@ -159,11 +56,34 @@ export class UsersService {
     id: string,
     updateUserDto: UpdateUserDto,
   ): Promise<UsersInterface> {
+    console.log(updateUserDto);
+    const birthDayUpdate = updateUserDto.birthday;
+    if (birthDayUpdate) {
+      const zodiacHorosocopes = getZodiacHoroscopes(new Date(birthDayUpdate));
+      const zodiac = zodiacHorosocopes.zodiacTemp;
+      const horoscope = zodiacHorosocopes.horoscopeTemp;
+      const withBirthDay = {
+        ...updateUserDto,
+        zodiac: zodiac,
+        horoscope: horoscope,
+      };
+      const existingProfile = await this.usersModel.findByIdAndUpdate(
+        id,
+        withBirthDay,
+        {
+          returnOriginal: false,
+        },
+      );
+      if (!existingProfile) {
+        throw new NotFoundException(`Profile with id #${id} no found`);
+      }
+      return existingProfile;
+    }
     const existingProfile = await this.usersModel.findByIdAndUpdate(
       id,
       updateUserDto,
       {
-        new: true,
+        returnOriginal: false,
       },
     );
     if (!existingProfile) {
