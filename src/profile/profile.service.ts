@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { getZodiacHoroscopes } from 'src/components/zodiac_horoscopes';
 import { CreateProfileDto } from 'src/dto/create-profile.dto';
-import { UpdatingDto } from 'src/dto/updating.dto';
+import { UpdatingDto } from 'src/dto/update-profile.dto.dto';
 import { User } from 'src/schemas/user.schema';
 import { Interests } from 'src/schemas/interest.schema';
 import { Profiles } from 'src/schemas/profile.schema';

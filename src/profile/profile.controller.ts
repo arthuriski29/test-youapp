@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { CustomRequest } from 'src/interface/custom-request.interface';
 import { CreateProfileDto } from 'src/dto/create-profile.dto';
-import { UpdatingDto } from 'src/dto/updating.dto';
+import { UpdatingDto } from 'src/dto/update-profile.dto.dto';
 import { JwtAuthGuard } from 'src/guard/jwt.guards';
 import { ProfileService } from './profile.service';
 
