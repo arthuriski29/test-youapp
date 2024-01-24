@@ -1,8 +1,14 @@
 import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+
+//SERVICE
 import { AuthService } from './auth.service';
-import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
-import { AuthResponse } from './interface/auth-response.dto';
+
+//DTO's
+import { RegisterDto } from '../dto/register.dto';
+import { LoginDto } from '../dto/login.dto';
+
+//INTERFACE
+import { AuthResponse } from '../interface/auth-response.interface';
 
 @Controller('api')
 export class AuthController {
@@ -13,16 +19,14 @@ export class AuthController {
     try {
       return await this.authService.register(registerDto);
     } catch (error) {
+      console.log(error);
       throw new BadRequestException('Bad Request, Register Failed');
     }
   }
 
   @Post('/login')
+  // @UseGuards(AuthGuard('local'))
   async login(@Body() loginDto: LoginDto): Promise<AuthResponse> {
-    try {
-      return await this.authService.login(loginDto);
-    } catch (error) {
-      throw new BadRequestException('Bad Request, Login Failed');
-    }
+    return await this.authService.login(loginDto);
   }
 }

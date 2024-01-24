@@ -1,18 +1,14 @@
 import { Module } from '@nestjs/common';
+import { ProfileController } from './profile.controller';
+import { ProfileService } from './profile.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigService } from '@nestjs/config';
+import { JwtStrategy } from 'src/strategies/jwt.strategy';
+import { UserSchema } from 'src/schemas/user.schema';
+import { ProfilesSchema } from 'src/schemas/profile.schema';
+import { InterestSchema } from 'src/schemas/interest.schema';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-
-//SCHEMAS
-import { UserSchema } from '../schemas/user.schema';
-
-//STARTEGIES
-import { JwtStrategy } from '../strategies/jwt.strategy';
-import { LocalStrategy } from 'src/strategies/local.strategy';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -29,9 +25,11 @@ import { LocalStrategy } from 'src/strategies/local.strategy';
       },
     }),
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: 'Profiles', schema: ProfilesSchema }]),
+    MongooseModule.forFeature([{ name: 'Interests', schema: InterestSchema }]),
   ],
-  controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, LocalStrategy],
+  controllers: [ProfileController],
+  providers: [ProfileService, JwtStrategy],
   exports: [JwtStrategy, PassportModule],
 })
-export class AuthModule {}
+export class ProfileModule {}

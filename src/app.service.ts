@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Welcome to test-youapp Backend';
+  getHello(): object {
+    return {
+      success: true,
+      message: 'test-youapp Backend Connected',
+    };
   }
 }
