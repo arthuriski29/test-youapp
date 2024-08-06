@@ -71,3 +71,14 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
   Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+## Tech Stack
+<p align="center">
+  <img src="https://nestjs.com/img/logo-small.svg" alt="Nest Image" width="200" style="margin-right: 20px;">
+  <img src="https://webimages.mongodb.com/_com_assets/cms/kuyjf3vea2hg34taa-horizontal_default_slate_blue.svg?auto=format%252Ccompress" alt="Mongo Image" width="600">
+</p>
+
+| Stack | Logo     | Description |
+| :-------- | :------- | :------- |
+| [NestJS](https://nestjs.com/)  | <img src="https://nestjs.com/img/logo-small.svg" alt="Nest Image" width="200" style="margin-right: 20px;"> |Framework for Backend App|
+| [MongoDB](https://www.mongodb.com/)  |  <img src="https://webimages.mongodb.com/_com_assets/cms/kuyjf3vea2hg34taa-horizontal_default_slate_blue.svg?auto=format%252Ccompress" alt="Mongo Image" width="600">|mongoose NOSQL with MongoDB Atlas Database|
