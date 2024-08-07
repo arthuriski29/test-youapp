@@ -92,4 +92,21 @@ export class AuthService {
       throw new UnauthorizedException('Unauthorized check your request');
     }
   }
+
+  async findOne(username: string): Promise<User | null> {
+    return this.userModel.findOne({ username }).exec();
+  }
+
+  async findById(id: string): Promise<User | null> {
+    return this.userModel.findById(id).exec();
+  }
+
+  async updateProfile(
+    username: string,
+    profileData: any,
+  ): Promise<User | null> {
+    return this.userModel
+      .findOneAndUpdate({ username }, profileData, { new: true })
+      .exec();
+  }
 }

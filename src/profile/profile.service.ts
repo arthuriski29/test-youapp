@@ -151,7 +151,7 @@ export class ProfileService {
     }
   }
 
-  async updateInterest(id: string, interestDto: string[]) {
+  async updateInterest(id: string, interestDto: UpdateProfileDto['interest']) {
     try {
       const interest = interestDto;
       if (interest) {

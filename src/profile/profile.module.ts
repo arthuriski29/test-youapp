@@ -9,6 +9,7 @@ import { InterestSchema } from 'src/schemas/interest.schema';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { MessageSchema } from 'src/schemas/chat.message.schema';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ConfigService } from '@nestjs/config';
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
     MongooseModule.forFeature([{ name: 'Profiles', schema: ProfilesSchema }]),
     MongooseModule.forFeature([{ name: 'Interests', schema: InterestSchema }]),
+    MongooseModule.forFeature([{ name: 'Message', schema: MessageSchema }]),
   ],
   controllers: [ProfileController],
   providers: [ProfileService, JwtStrategy],

@@ -13,6 +13,7 @@ import { UserSchema } from '../schemas/user.schema';
 //STARTEGIES
 import { JwtStrategy } from '../strategies/jwt.strategy';
 import { LocalStrategy } from 'src/strategies/local.strategy';
+import { MessageSchema } from 'src/schemas/chat.message.schema';
 
 @Module({
   imports: [
@@ -32,6 +33,6 @@ import { LocalStrategy } from 'src/strategies/local.strategy';
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy, LocalStrategy],
-  exports: [JwtStrategy, PassportModule],
+  exports: [JwtStrategy, PassportModule, AuthService],
 })
 export class AuthModule {}
